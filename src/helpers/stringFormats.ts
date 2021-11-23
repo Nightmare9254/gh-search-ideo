@@ -1,4 +1,4 @@
-import { SortTypes } from '../interfaces/repoInterfaces';
+import { SortTypes } from '../interfaces/utils';
 
 export const formatDisplay = (string: SortTypes) =>
   typeof string === 'string'

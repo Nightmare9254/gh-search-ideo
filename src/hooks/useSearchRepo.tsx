@@ -1,8 +1,10 @@
 import { createContext, FC, useContext, useReducer, useState } from 'react';
-import { IRepos, SortTypes } from '../interfaces/repoInterfaces';
+import { getOptionValue } from '../helpers/getOptionValue';
+import { IRepos } from '../interfaces/repoInterfaces';
 import { Actions, ActionType, State } from '../interfaces/searchReducer';
+import { SortTypes, SortValue } from '../interfaces/utils';
 
-const { SEARCH, SET_REPOS } = ActionType;
+const { SET_REPOS } = ActionType;
 
 const reducer = (repos: State<IRepos>, action: Actions) => {
   switch (action.type) {
@@ -20,7 +22,9 @@ const useSearchReducer = () => {
     total_count: 0,
   });
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState<SortTypes>(SortTypes.BEST_MATCH);
+  const [sort, setSort] = useState<SortValue>(
+    getOptionValue(SortTypes.BEST_MATCH)
+  );
   return {
     repos,
     dispatch,
