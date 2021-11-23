@@ -1,17 +1,19 @@
 import { ChangeEvent } from 'react';
+import { getOptionValue } from '../../helpers/getOptionValue';
 import { formatDisplay } from '../../helpers/stringFormats';
 import { useSearch } from '../../hooks/useSearch';
 import { useRepoContext } from '../../hooks/useSearchRepo';
-import { IRepos, SortTypes, SortValue } from '../../interfaces/repoInterfaces';
+import { IRepos } from '../../interfaces/repoInterfaces';
 import { ActionType, State } from '../../interfaces/searchReducer';
+import { SortTypes, SortValue } from '../../interfaces/utils';
 
 const RepoFilter = () => {
   const { handleSearch, loading } = useSearch();
   const { search, dispatch, setSort, sort } = useRepoContext();
 
   const handleSort = (e: ChangeEvent<HTMLSelectElement>) => {
-    const sortValue = e.target.value;
-    setSort(SortTypes.BEST_MATCH);
+    const sortValue = getOptionValue(e.target.value);
+    setSort(sortValue);
     handleSearch<State<IRepos>>(
       `search/repositories?q=${search}`,
       sortValue
@@ -24,11 +26,11 @@ const RepoFilter = () => {
     <div>
       <div>
         <select name="sort" id="sort-type" onChange={handleSort}>
-          <option disabled={true}>Sort:{formatDisplay(sort)} </option>
+          <option disabled={true}>Sort </option>
           <option value={SortValue.BEST_MATCH}>
             {formatDisplay(SortTypes.BEST_MATCH)}
           </option>
-          <option value={SortTypes.BEST_MATCH}>
+          <option value={SortTypes.MOST_STARS}>
             {formatDisplay(SortTypes.MOST_STARS)}
           </option>
           <option value={SortTypes.FEWEST_STARS}>
