@@ -62,7 +62,6 @@ const User = () => {
           ({
             id,
             full_name,
-
             created_at,
             description,
             topics,

@@ -7,7 +7,6 @@ import { formatGHApiUrl } from '../../helpers/stringFormats';
 const SingleRepository: FC<{
   fullName: string;
   createdAt: string;
-
   commitsUrl: string;
   url: string;
   language?: string;
