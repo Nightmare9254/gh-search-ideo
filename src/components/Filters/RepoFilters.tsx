@@ -9,7 +9,7 @@ import { SortTypes, SortValue } from '../../interfaces/utils';
 import Spinner from '../Spinner';
 
 const RepoFilter = () => {
-  const { handleSearch, loading } = useSearch();
+  const { loading, handleSearch } = useSearch();
   const { search, dispatch, setSort } = useRepoContext();
 
   const handleSort = (e: ChangeEvent<HTMLSelectElement>) => {

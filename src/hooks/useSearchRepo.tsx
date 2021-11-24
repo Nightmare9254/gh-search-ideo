@@ -44,7 +44,7 @@ export const useRepoContext = () => {
 
   if (!ctx)
     throw new Error(
-      'Context is undefined or you are useing it outside provider'
+      'Context is undefined or you are using it outside provider'
     );
 
   return ctx;

@@ -3,6 +3,7 @@ import { loadingTypes, SortValue } from '../interfaces/utils';
 
 export const useSearch = () => {
   const [loading, setLoading] = useState<loadingTypes>('idle');
+
   const handleSearch = useCallback(
     async <T>(
       url: string,
@@ -24,15 +25,10 @@ export const useSearch = () => {
         return data;
       } catch (err) {
         setLoading('error');
-
-        console.log(err);
       }
     },
     []
   );
 
-  return {
-    loading,
-    handleSearch,
-  };
+  return { loading, handleSearch };
 };
