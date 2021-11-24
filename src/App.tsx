@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RepositoryInfo from './components/Repositories/RepositoryInfo';
-
 import Main from './pages/Main';
+import NotFound from './pages/NotFound';
 import User from './pages/User';
 
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
           <Route path="users">
             <Route path=":id" element={<User />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

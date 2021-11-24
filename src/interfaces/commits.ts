@@ -1,5 +1,9 @@
 import { Owner } from './repoInterfaces';
 
+export interface CommitsArr {
+  commits: ICommits[];
+  message?: string;
+}
 export interface ICommits {
   sha: string;
   node_id: string;
