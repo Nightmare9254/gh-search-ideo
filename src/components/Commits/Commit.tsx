@@ -10,25 +10,32 @@ const Commit: FC<{ author: Owner; commit: ICommit }> = ({ author, commit }) => {
   dayjs.extend(relativeTime);
 
   return (
-    <>
-      <p>{commit.message}</p>
-      <div>
-        {author && (
-          <>
-            <img src={author.avatar_url} alt="Author of commit profile" />
-            <Link
-              to={`/${formatGHApiUrl(
-                author.url,
-                /https:\/\/api.github.com\//
-              )}`}
-            >
-              {commit.author.name}
-            </Link>
-          </>
-        )}
-        {dayjs(commit.author.date).fromNow()}
-      </div>
-    </>
+    <div className="commit">
+      {author && (
+        <>
+          <img
+            src={author.avatar_url}
+            alt="Author of commit profile"
+            className="commit__author-profile"
+          />
+          <Link
+            to={`/${formatGHApiUrl(author.url, /https:\/\/api.github.com\//)}`}
+            className="commit__author-link link"
+          >
+            {commit.author.name}
+          </Link>
+        </>
+      )}
+      <p className="commit__date">{dayjs(commit.author.date).fromNow()}</p>
+      <p
+        className={`commit__message ${
+          commit.message.length >= 180 ? 'commit__message--limit' : null
+        }`}
+      >
+        {commit.message.slice(0, 180)}
+        {commit.message.length >= 180 ? '...' : null}
+      </p>
+    </div>
   );
 };
 

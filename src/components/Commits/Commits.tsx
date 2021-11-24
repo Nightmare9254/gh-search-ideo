@@ -15,7 +15,8 @@ const Commits: FC<{ commitsUrl: string }> = ({ commitsUrl }) => {
   }, [commitsUrl]);
 
   return (
-    <section>
+    <section className="commits">
+      <h2 className="commits__length">Commits: ({commits?.length})</h2>
       {commits?.map(({ author, commit, sha }) => (
         <Commit key={sha} author={author} commit={commit} />
       ))}

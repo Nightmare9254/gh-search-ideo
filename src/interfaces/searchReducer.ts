@@ -3,7 +3,8 @@ import { IRepos } from './repoInterfaces';
 export interface State<T> {
   incomplete_results: boolean;
   items?: T[];
-  total_count: number;
+  total_count: number | null;
+  message?: string;
 }
 
 export enum ActionType {

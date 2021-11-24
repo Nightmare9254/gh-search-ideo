@@ -3,11 +3,13 @@ import { useSearch } from '../../hooks/useSearch';
 import { useRepoContext } from '../../hooks/useSearchRepo';
 import { IRepos } from '../../interfaces/repoInterfaces';
 import { State, ActionType } from '../../interfaces/searchReducer';
+import RepoFilter from '../Filters/RepoFilters';
+import Spinner from '../Spinner';
 
 const Header = () => {
-  const { dispatch, search, setSearch, setSort, sort } = useRepoContext();
+  const { dispatch, search, setSearch } = useRepoContext();
   const { handleSearch, loading } = useSearch();
-  console.log(sort);
+
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (!search) return;
@@ -19,15 +21,21 @@ const Header = () => {
     }, 500);
 
     return () => clearTimeout(debounce);
-  }, [search, dispatch]);
+  }, [search, dispatch, handleSearch]);
 
   return (
-    <header>
-      <input
-        type="text"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
+    <header className="header">
+      <section>
+        <input
+          type="text"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Search for repos"
+          className="header__search"
+        />
+        <RepoFilter />
+      </section>
+      {loading === 'loading' && <Spinner />}
     </header>
   );
 };

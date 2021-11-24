@@ -1,4 +1,3 @@
-import RepoFilter from '../components/Filters/RepoFilters';
 import Header from '../components/Header/Header';
 import Repositories from '../components/Repositories/Repositories';
 
@@ -9,7 +8,6 @@ const Main = () => {
     <>
       <RepoProvider>
         <Header />
-        <RepoFilter />
         <Repositories />
       </RepoProvider>
     </>

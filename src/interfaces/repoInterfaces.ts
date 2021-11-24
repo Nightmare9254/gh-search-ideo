@@ -77,6 +77,18 @@ export interface IRepos {
   watchers: number;
   default_branch: string;
   score: number;
+  message?: string;
+}
+
+export interface ISingleRepo {
+  fullName: string;
+  createdAt: string;
+  commitsUrl: string;
+  url: string;
+  language?: string;
+  license?: License;
+  description?: string;
+  topics?: string[];
 }
 
 export interface License {
@@ -106,6 +118,7 @@ export interface Owner {
   received_events_url: string;
   type: string;
   site_admin: boolean;
+  message?: string;
 }
 
 export interface SingleUser extends Owner {

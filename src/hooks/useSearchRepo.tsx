@@ -19,7 +19,7 @@ const reducer = (repos: State<IRepos>, action: Actions) => {
 const useSearchReducer = () => {
   const [repos, dispatch] = useReducer(reducer, {
     incomplete_results: false,
-    total_count: 0,
+    total_count: null,
   });
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState<SortValue>(

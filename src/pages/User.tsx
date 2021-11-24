@@ -16,48 +16,48 @@ const User = () => {
 
   useEffect(() => {
     handleSearch<SingleUser>(`users/${id}`).then(data => setUser(data));
-  }, [id]);
+  }, [id, handleSearch]);
 
   useEffect(() => {
     if (user)
       handleSearch<IRepos[]>(
         `${formatGHApiUrl(user?.repos_url, /https:\/\/api.github.com\//)}`
       ).then(data => setUserRepos(data));
-  }, [user]);
+  }, [user, handleSearch]);
 
   return (
-    <div>
-      <section>
+    <main className="user">
+      <section className="user__information">
         <img
           src={user?.avatar_url ? user.avatar_url : user?.gravatar_id}
           alt="User account profile"
+          className="user__image"
         />
-        <h3>{user?.name}</h3>
-        <p>{user?.login}</p>
-        {user?.bio && (
-          <p>
-            <i className="fas fa-user"></i>
-            {user?.bio}
+        <aside>
+          <h1 className="user__name">{user?.name}</h1>
+          <p className="user__login">{user?.login}</p>
+          {user?.bio && (
+            <p className="user__bio">
+              <i className="fas fa-user"></i> {user?.bio}
+            </p>
+          )}
+          {user?.location && (
+            <p className="user__bio">
+              <i className="fas fa-map-marker-alt"></i> {user?.location}
+            </p>
+          )}
+          {user?.email && (
+            <p className="user__bio">
+              <i className="fas fa-envelope"></i> {user?.email}
+            </p>
+          )}
+          <p className="user__bio">
+            <i className="far fa-calendar"></i>{' '}
+            {dayjs(user?.created_at).format('DD-MM-YYYY')}
           </p>
-        )}
-        {user?.location && (
-          <p>
-            <i className="fas fa-map-marker-alt"></i>
-            {user?.location}
-          </p>
-        )}
-        {user?.email && (
-          <p>
-            <i className="fas fa-envelope"></i>
-            {user?.email}
-          </p>
-        )}
-        <p>
-          <i className="far fa-calendar"></i>
-          {dayjs(user?.created_at).format('DD-MM-YYYY')}
-        </p>
+        </aside>
       </section>
-      <section>
+      <section className="user__repos">
         {userRepos?.map(
           ({
             id,
@@ -84,7 +84,7 @@ const User = () => {
           )
         )}
       </section>
-    </div>
+    </main>
   );
 };
 

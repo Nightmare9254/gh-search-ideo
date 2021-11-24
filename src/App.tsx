@@ -6,7 +6,7 @@ import User from './pages/User';
 
 const App = () => {
   return (
-    <div>
+    <>
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -20,7 +20,7 @@ const App = () => {
           </Route>
         </Routes>
       </Router>
-    </div>
+    </>
   );
 };
 

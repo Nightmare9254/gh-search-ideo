@@ -1,22 +1,12 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { License } from '../../interfaces/repoInterfaces';
+import { ISingleRepo } from '../../interfaces/repoInterfaces';
 import { formatGHApiUrl } from '../../helpers/stringFormats';
 
-const SingleRepository: FC<{
-  fullName: string;
-  createdAt: string;
-  commitsUrl: string;
-  url: string;
-  language?: string;
-  license?: License;
-  description?: string;
-  topics?: string[];
-}> = ({
+const SingleRepository: FC<ISingleRepo> = ({
   fullName,
   createdAt,
-
   description,
   topics,
   url,
@@ -24,18 +14,41 @@ const SingleRepository: FC<{
   license,
 }) => {
   return (
-    <section>
-      <Link to={`/${formatGHApiUrl(url, /\/search\//)}`}>{fullName}</Link>
-      <p>{description}</p>
-      <div>
-        {topics?.map((topic, idx) => (
-          <button key={idx}>{topic}</button>
-        ))}
-      </div>
-      <p>
-        <span>{language}</span> <span>{license?.name}</span>{' '}
-        <span>Created At {dayjs(createdAt).format('DD MM YYYY')}</span>
+    <section className="repo">
+      <Link
+        to={`/${formatGHApiUrl(url, /\/search\//)}`}
+        className="repo__link link"
+      >
+        {fullName.split('/')[0]}
+        <span className="repo__link--name">{`/${fullName.split('/')[1]}`}</span>
+      </Link>
+      <p className="repo__description">{description}</p>
+      <p className="repo__info">
+        {language && (
+          <>
+            Written in:<span className="repo__info--item"> {language}</span>{' '}
+          </>
+        )}
+        {license && (
+          <>
+            Licensed on:
+            <span className="repo__info--item"> {license?.name}</span>{' '}
+          </>
+        )}
+        Created At:
+        <span className="repo__info--item">
+          {dayjs(createdAt).format('DD MM YYYY')}
+        </span>
       </p>
+      {topics && (
+        <aside className="repo__topics">
+          {topics?.map((topic, idx) => (
+            <button className="repo__topic--btn btn--primary" key={idx}>
+              {topic}
+            </button>
+          ))}
+        </aside>
+      )}
     </section>
   );
 };

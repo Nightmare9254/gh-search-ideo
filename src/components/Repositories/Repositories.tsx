@@ -2,10 +2,19 @@ import { useRepoContext } from '../../hooks/useSearchRepo';
 import SingleRepository from './SingleRepository';
 
 const Repositories = () => {
-  const { repos } = useRepoContext();
+  const { repos, search } = useRepoContext();
 
   return (
-    <main>
+    <main className="repos">
+      {repos.total_count === null && (
+        <p className="message">Try searching something...</p>
+      )}
+      {repos.total_count === 0 && (
+        <p className="message">
+          We could not find anything matching{' '}
+          <span className="message--error">{search}</span>
+        </p>
+      )}
       {repos?.items?.map(
         ({
           id,
