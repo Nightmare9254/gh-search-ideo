@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { formatGHApiUrl } from '../../helpers/stringFormats';
-import { CommitsArr, ICommits } from '../../interfaces/commits';
+import { ICommits } from '../../interfaces/commits';
 import { useSearch } from '../../hooks/useSearch';
 import Commit from './Commit';
 import Spinner from '../Spinner';
@@ -8,31 +8,38 @@ import Spinner from '../Spinner';
 const Commits: FC<{ commitsUrl: string }> = ({ commitsUrl }) => {
   const [commits, setCommits] = useState<ICommits[]>();
   const { handleSearch, loading } = useSearch();
-  const [error, setError] = useState('');
+  const [commitsPage, setCommitsPage] = useState(1);
+  const [exhausted, setExhausted] = useState(false);
 
   useEffect(() => {
-    handleSearch<any | ICommits[]>(
-      `${formatGHApiUrl(commitsUrl, /{(.*?)}/)}` //replace string between curly braces
+    handleSearch<ICommits[]>(
+      `${formatGHApiUrl(commitsUrl, /{(.*?)}/)}?&page=${commitsPage}`
     ).then(data => {
-      if (data?.message) return setError(data.message);
+      if (data?.length === 0) setExhausted(true);
 
-      setCommits(data);
+      if (data !== null)
+        setCommits(prev => (prev !== undefined ? [...prev, ...data] : data));
     });
-  }, [commitsUrl, handleSearch]);
-
+  }, [commitsUrl, handleSearch, commitsPage]);
   return (
     <>
-      {error && <p className="message">{error}</p>}
-      {loading === 'loaded' && !error ? (
-        <section className="commits">
-          <h2 className="commits__length">Commits: ({commits?.length})</h2>
-          {commits?.map(({ author, commit, sha }) => (
-            <Commit key={sha} author={author} commit={commit} />
-          ))}
-        </section>
-      ) : (
-        <Spinner />
-      )}
+      <section className="commits">
+        <h2 className="commits__length">Commits: </h2>
+        {commits?.map(({ author, commit, sha }) => (
+          <Commit key={sha} author={author} commit={commit} />
+        ))}
+        {commits !== undefined && commits?.length <= 30 ? null : (
+          <button
+            onClick={() => setCommitsPage(prevPage => (prevPage += 1))}
+            disabled={exhausted}
+            className="btn--secondary"
+          >
+            Load more..
+          </button>
+        )}
+      </section>
+
+      {loading === 'loading' && <Spinner />}
     </>
   );
 };
