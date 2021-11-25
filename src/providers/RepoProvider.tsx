@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { SearchRepoProvider } from '../hooks/useSearchRepo';
 
 const RepoProvider: FC = ({ children }) => {
