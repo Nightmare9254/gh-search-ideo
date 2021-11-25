@@ -1,6 +1,6 @@
-import { SortTypes } from '../interfaces/utils';
+import { Sort } from '../interfaces/utils';
 
-export const formatDisplay = (string: SortTypes) =>
+export const formatDisplay = (string: Sort) =>
   typeof string === 'string'
     ? `${string[0].toUpperCase()}${string.slice(1).split('-').join(' ')}`
     : string;
