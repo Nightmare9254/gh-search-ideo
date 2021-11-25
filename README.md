@@ -1,5 +1,5 @@
 ## Run Locally
-[Live](https://gh-repo-search-ideo.netlify.app/users/yunheli)
+[Live](https://gh-repo-search-ideo.netlify.app)
 
 Clone the project
 
