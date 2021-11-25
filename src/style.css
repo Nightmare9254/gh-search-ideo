@@ -74,6 +74,30 @@ h2 {
   font-weight: 400;
 }
 
+:root {
+  --bg-light-100: #ffffff;
+  --bg-light-500: #f9f9f9;
+  --bg-light-700: #e4e4e4;
+  --bg-dark-500: 48, 54, 61;
+
+  --font-100: #fff;
+  --font-300: #908ea7;
+  --font-400: #737186;
+  --font-500: #36344b;
+
+  --ok-500: #53c245;
+  --error-500: #e53e3e;
+  --secondary: 60, 148, 248;
+
+  --ft-size-200: 1.2rem;
+  --ft-size-300: 1.4rem;
+  --ft-size-400: 1.6rem;
+  --ft-size-500: 2.1rem;
+  --ft-size-600: 2.8rem;
+
+  --max-width: 630px;
+}
+
 /* Utils */
 
 .link {
@@ -94,7 +118,21 @@ h2 {
   min-width: fit-content;
   cursor: pointer;
 }
-
+.btn--primary:disabled {
+  background-color: rgba(var(--secondary), 0.7);
+  cursor: not-allowed;
+}
+.btn--secondary {
+  margin: 2rem 0 1rem 0;
+  font-size: var(--ft-size-500);
+  color: var(--font-100);
+  border: transparent;
+  background-color: rgba(var(--bg-dark-500), 0.7);
+  border-radius: 0.25em;
+}
+.btn--secondary:disabled {
+  background-color: rgba(var(--bg-dark-500), 0.3);
+}
 .message {
   font-size: var(--ft-size-300);
   color: var(--font-500);
@@ -110,29 +148,7 @@ h2 {
   background-color: rgba(var(--secondary), 0.7);
 }
 
-:root {
-  --bg-light-100: #ffffff;
-  --bg-light-500: #f9f9f9;
-  --bg-light-700: #e4e4e4;
-  --bg-dark-500: #30363d;
-
-  --font-100: #fff;
-  --font-300: #908ea7;
-  --font-400: #737186;
-  --font-500: #36344b;
-
-  --ok-500: #53c245;
-  --error-500: #e53e3e;
-  --secondary: 60, 148, 248;
-
-  --ft-size-200: 1.2rem;
-  --ft-size-300: 1.4rem;
-  --ft-size-400: 1.6rem;
-  --ft-size-500: 2.1rem;
-  --ft-size-600: 2.8rem;
-
-  --max-width: 630px;
-}
+/* Header */
 
 .header {
   display: flex;
@@ -157,24 +173,47 @@ h2 {
   color: inherit;
   font-size: var(--ft-size-400);
   padding: 0.5rem 1rem;
-  border: 1px solid var(--bg-dark-500);
+  border: 1px solid rgb(var(--bg-dark-500));
   border-radius: 0.5rem;
   width: 100%;
 }
+
+/* Filters  */
 
 .sort {
   color: inherit;
   font-size: var(--ft-size-400);
   width: 100%;
   padding: 0.25em 0.5em;
-  border: 1px solid var(--bg-dark-500);
+  border: 1px solid rgb(var(--bg-dark-500));
   border-radius: 0.5rem;
   cursor: pointer;
 }
-/* Searched repo */
+
+/* Repos */
 .repos {
   margin-inline: 2rem;
 }
+.repos__users {
+  background-color: var(--bg-light-500);
+  border-radius: 0.25rem;
+  color: var(--font-500);
+  border: 1px solid var(--bg-light-700);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 0.5rem;
+  margin-top: 1rem;
+}
+.repos__users > img {
+  max-width: 8ch;
+}
+.repos__users > a {
+  font-size: var(--ft-size-500);
+}
+
+/* Repo */
+
 .repo {
   display: grid;
   gap: 0.75rem;
@@ -183,7 +222,7 @@ h2 {
   border: 1px solid var(--bg-light-700);
   border-radius: 0.25rem;
   margin-top: 1rem;
-  padding: 0.75rem 0.5rem;
+  padding: 0.5rem;
 }
 .repo:first-child {
   margin: 0;
@@ -215,8 +254,13 @@ h2 {
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+.repo__info-numbers {
+  display: flex;
+  gap: 1rem;
+}
 
 /* Single repo */
+
 .single__repo {
   display: grid;
   margin: 1rem 2rem;
@@ -230,12 +274,11 @@ h2 {
   padding: 0.5rem;
   border: 1px solid var(--bg-light-700);
   border-radius: 0.5rem;
+  min-width: 90vw;
 }
-
 .single__repo-profile {
   font-size: var(--ft-size-400);
 }
-
 .single__repo-name {
   color: var(--font-500);
   font-size: var(--ft-size-500);
@@ -247,15 +290,14 @@ h2 {
 .single__repo-owner {
   font-weight: 500;
 }
-
+.single__repo-contributor {
+  text-decoration: none;
+}
 .contributors__wrapper {
   display: flex;
   flex-wrap: wrap;
   margin-block: 0.5rem;
   gap: 1rem;
-}
-.single__repo-contributor {
-  text-decoration: none;
 }
 
 /* Commits */
@@ -286,6 +328,9 @@ h2 {
 .commit__author-link {
   grid: link;
 }
+.commit__followers {
+  font-size: var(--ft-size-300);
+}
 .commit__date {
   grid-area: date;
   color: var(--font-400);
@@ -303,6 +348,7 @@ h2 {
 }
 
 /* Profile*/
+
 .user {
   display: grid;
   gap: 1rem;
@@ -323,6 +369,7 @@ h2 {
   column-gap: 1rem;
   display: grid;
   grid-template-columns: auto 1fr;
+  width: 100%;
 }
 .user__information > aside {
   align-self: center;
@@ -337,7 +384,6 @@ h2 {
   grid-area: repos;
   max-width: var(--max-width);
 }
-
 .user__name {
   font-size: var(--ft-size-500);
 }
@@ -348,6 +394,9 @@ h2 {
 .user__bio {
   font-size: var(--ft-size-400);
 }
+
+/* Not found */
+
 .not__found {
   display: grid;
   place-content: center;
@@ -363,16 +412,31 @@ h2 {
   font-size: var(--ft-size-500);
 }
 
+.next__page-nav {
+  margin-block: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.next-btn {
+  font-size: var(--ft-size-500);
+}
+.next-page {
+  color: var(--font-500);
+  font-size: var(--ft-size-600);
+  margin-inline: 2rem;
+}
+
 @media screen and (min-width: 660px) {
-  .user {
-    grid-template-columns: 250px minmax(1fr, var(--max-width));
-    grid-template-rows: auto;
-    column-gap: 1rem;
-    grid-template-areas: 'user repos';
-    justify-content: center;
+  .repo {
+    width: calc(var(--max-width) - 10px);
+  }
+  .repos__users {
+    min-width: var(--max-width);
   }
   .single__repo-info {
-    min-width: var(--max-width);
+    min-width: calc(var(--max-width) - 30px);
+    max-width: var(--max-width);
   }
   .repos {
     display: flex;
@@ -383,14 +447,22 @@ h2 {
     width: var(--max-width);
   }
 }
-
+@media screen and (min-width: 850px) {
+  .user {
+    grid-template-columns: 250px minmax(1fr, var(--max-width));
+    grid-template-rows: auto;
+    column-gap: 1rem;
+    grid-template-areas: 'user repos';
+    justify-content: center;
+  }
+}
 /* Animations */
 
 .spinner {
   display: inline-block;
   width: 5em;
   height: 5em;
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 1rem;
 }
@@ -401,8 +473,9 @@ h2 {
   height: 4em;
   margin: 4px;
   border-radius: 50%;
-  border: 0.3em solid var(--bg-dark-500);
-  border-color: var(--bg-dark-500) transparent var(--bg-dark-500) transparent;
+  border: 0.3em solid rgb(var(--bg-dark-500));
+  border-color: rgb(var(--bg-dark-500)) transparent rgb(var(--bg-dark-500))
+    transparent;
   animation: spin 1.2s linear infinite;
 }
 @keyframes spin {

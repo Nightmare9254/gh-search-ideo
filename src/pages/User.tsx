@@ -6,12 +6,13 @@ import { IRepos, SingleUser } from '../interfaces/repoInterfaces';
 import { useSearch } from '../hooks/useSearch';
 import { formatGHApiUrl } from '../helpers/stringFormats';
 import SingleRepository from '../components/Repositories/SingleRepository';
+import Spinner from '../components/Spinner';
 dayjs.extend(relativeTime);
 
 const User = () => {
   const { id } = useParams();
-  const [user, setUser] = useState<SingleUser>();
-  const [userRepos, setUserRepos] = useState<IRepos[]>();
+  const [user, setUser] = useState<SingleUser | null>();
+  const [userRepos, setUserRepos] = useState<IRepos[] | null>();
   const { handleSearch, loading } = useSearch();
   const [error, setError] = useState('');
 
@@ -29,7 +30,7 @@ const User = () => {
         `${formatGHApiUrl(user?.repos_url, /https:\/\/api.github.com\//)}`
       ).then(data => setUserRepos(data));
   }, [user, handleSearch]);
-
+  console.log(userRepos);
   return (
     <>
       {error ? (
@@ -78,6 +79,9 @@ const User = () => {
                 url,
                 language,
                 license,
+                forks_count,
+                watchers_count,
+                open_issues_count,
               }) => (
                 <SingleRepository
                   key={id}
@@ -89,12 +93,21 @@ const User = () => {
                   url={url}
                   language={language}
                   license={license}
+                  forksCount={forks_count}
+                  issueCount={open_issues_count}
+                  watchersCount={watchers_count}
                 />
               )
+            )}
+            {userRepos?.length === 0 && (
+              <p className="message">
+                This user does not have any repositories yet{' '}
+              </p>
             )}
           </section>
         </main>
       )}
+      {loading === 'loading' && <Spinner />}
     </>
   );
 };
