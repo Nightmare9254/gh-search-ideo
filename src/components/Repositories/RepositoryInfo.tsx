@@ -17,7 +17,7 @@ const RepositoryInfo = () => {
     handleSearch<IRepos>(`${pathname}`).then(data => {
       if (data?.message) return setError(data.message);
 
-      setRepoInfo(data);
+      if (data !== null) setRepoInfo(data);
     });
   }, [pathname, handleSearch]);
 

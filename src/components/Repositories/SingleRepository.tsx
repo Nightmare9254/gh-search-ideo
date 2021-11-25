@@ -12,6 +12,9 @@ const SingleRepository: FC<ISingleRepo> = ({
   url,
   language,
   license,
+  forksCount,
+  issueCount,
+  watchersCount,
 }) => {
   return (
     <section className="repo">
@@ -37,7 +40,18 @@ const SingleRepository: FC<ISingleRepo> = ({
         )}
         Created At:
         <span className="repo__info--item">
-          {dayjs(createdAt).format('DD MM YYYY')}
+          {dayjs(createdAt).format('DD/MM/YYYY')}
+        </span>
+      </p>
+      <p className="repo__info repo__info-numbers">
+        <span>
+          <i className="fas fa-eye"></i> {watchersCount}
+        </span>
+        <span>
+          <i className="fas fa-code-branch"></i> {forksCount}
+        </span>
+        <span>
+          <i className="fas fa-exclamation"></i> {issueCount}
         </span>
       </p>
       {topics && (
