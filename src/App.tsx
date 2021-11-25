@@ -7,6 +7,7 @@ import User from './pages/User';
 const App = () => {
   return (
     <>
+      <p>Outside ROuter</p>
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
