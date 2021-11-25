@@ -89,6 +89,9 @@ export interface ISingleRepo {
   license?: License;
   description?: string;
   topics?: string[];
+  forksCount: number;
+  watchersCount: number;
+  issueCount: number;
 }
 
 export interface License {

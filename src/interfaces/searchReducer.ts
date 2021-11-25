@@ -1,24 +1,30 @@
-import { IRepos } from './repoInterfaces';
+import { IRepos, Owner } from './repoInterfaces';
 
-export interface State<T> {
+export interface BaseState<T> {
   incomplete_results: boolean;
   items?: T[];
   total_count: number | null;
   message?: string;
 }
 
+export interface State {
+  repos: BaseState<IRepos>;
+  users: BaseState<Owner>;
+}
+
 export enum ActionType {
   SEARCH = 'search',
   SET_REPOS = 'set_repos',
+  SET_USERS = 'set_users',
 }
 
-interface ActionSearch {
-  type: ActionType.SEARCH;
-  payload: string;
+interface ActionSetUsers {
+  type: ActionType.SET_USERS;
+  payload: BaseState<Owner>;
 }
 interface ActionSetRepos {
   type: ActionType.SET_REPOS;
-  payload: State<IRepos>;
+  payload: BaseState<IRepos>;
 }
 
-export type Actions = ActionSearch | ActionSetRepos;
+export type Actions = ActionSetRepos | ActionSetUsers;
