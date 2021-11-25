@@ -8,16 +8,16 @@ export const useSearch = () => {
     async <T>(
       url: string,
       query: SortValue | string = '',
-      limit: number = 3,
-      page: number = 1
+      page: number = 1,
+      limit: number = 20
     ) => {
-      if (!url) return;
+      if (!url) return null;
       setLoading('loading');
+
       try {
         const baseUrl = query
           ? `https://api.github.com/${url}&${query}&per_page=${limit}&page=${page}`
           : `https://api.github.com/${url}`;
-        // &per_page=${limit}&page=${page}
         const res = await fetch(baseUrl);
         const data: T = await res.json();
 
@@ -25,6 +25,7 @@ export const useSearch = () => {
         return data;
       } catch (err) {
         setLoading('error');
+        return null;
       }
     },
     []
